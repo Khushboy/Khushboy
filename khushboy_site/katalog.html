@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KHUSHBÖY — Limited Edition Perfumes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8A6C2A;
+  --bg:#0A0A0A;--card:#111111;--card2:#171717;
+  --border:rgba(201,168,76,.22);
+  --tp:#F5F0E8;--tm:#7A7570;
+}
+body{background:var(--bg);color:var(--tp);font-family:'Montserrat',sans-serif;font-weight:300;min-height:100vh}
+
+.hdr{text-align:center;padding:64px 40px 44px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#0f0d09 0%,var(--bg) 100%);position:relative}
+.hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.tagline{font-size:10px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(48px,8vw,88px);letter-spacing:14px;color:var(--tp);line-height:1;margin-bottom:8px}
+.logo em{color:var(--gold);font-style:normal}
+.sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--tm);letter-spacing:3px;margin-bottom:22px}
+.dvd{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 18px}
+.dvd::before,.dvd::after{content:'';width:70px;height:1px}
+.dvd::before{background:linear-gradient(90deg,transparent,var(--gold-dim))}
+.dvd::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
+
+.fbar{display:flex;justify-content:center;padding:26px 20px;border-bottom:1px solid var(--border);background:#0d0d0d;flex-wrap:wrap;gap:4px}
+.fb{background:transparent;border:1px solid var(--border);color:var(--tm);font-family:'Montserrat',sans-serif;font-weight:300;font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:11px 28px;cursor:pointer;transition:all .3s;border-radius:2px}
+.fb:hover,.fb.active{background:var(--gold);color:#0A0A0A;border-color:var(--gold)}
+
+.stats{display:flex;justify-content:center;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.stat{padding:16px 30px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.sval{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);line-height:1}
+.slbl{font-size:9px;letter-spacing:2px;color:var(--tm);text-transform:uppercase;margin-top:3px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border)}
+
+.card{background:var(--card);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .3s,opacity .5s ease,transform .5s ease;cursor:pointer}
+.card:hover{background:var(--card2)}
+.card.hidden{display:none}
+.card.anim-hidden{opacity:0;transform:translateY(28px);transition:none}
+
+.img-wrap{width:100%;aspect-ratio:1/1.15;background:#0c0c0a;position:relative;overflow:hidden}
+.img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card:hover .img-wrap img{transform:scale(1.06)}
+
+.cnum{position:absolute;top:11px;left:13px;font-size:9px;font-weight:500;letter-spacing:2px;color:#fff;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.cgender{position:absolute;top:11px;right:13px;font-size:8px;letter-spacing:2px;font-weight:500;text-transform:uppercase;padding:3px 8px;border:1px solid;z-index:2}
+.cgender.erkak{color:#85B8D4;border-color:rgba(133,184,212,.6);background:rgba(0,0,0,.5)}
+.cgender.ayol{color:#D490BE;border-color:rgba(212,144,190,.6);background:rgba(0,0,0,.5)}
+.cgender.unisex{color:var(--gold);border-color:rgba(201,168,76,.6);background:rgba(0,0,0,.5)}
+
+.cinfo{padding:16px 18px 20px;border-top:1px solid var(--border)}
+.cbrand{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;font-weight:400}
+.cname{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:19px;color:var(--tp);line-height:1.25;margin-bottom:10px}
+
+.price-box{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:3px}
+.price-vol{font-size:9px;letter-spacing:2px;color:var(--tm);text-transform:uppercase}
+.price-val{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-light);letter-spacing:1px}
+.price-cur{font-size:8px;letter-spacing:1px;color:var(--tm);margin-left:4px}
+
+footer{text-align:center;padding:48px 20px 100px;border-top:1px solid var(--border);background:#0d0d0b}
+.fbrand{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);letter-spacing:8px;margin-bottom:10px}
+footer p{font-size:9px;letter-spacing:3px;color:var(--tm);text-transform:uppercase}
+
+/* ── ALOQA ── */
+.cbar{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:990;filter:drop-shadow(0 4px 24px rgba(0,0,0,.7))}
+.clink{display:flex;align-items:center;gap:7px;background:rgba(13,13,13,.96);border:1px solid rgba(201,168,76,.45);color:#F5F0E8;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:300;font-size:10px;letter-spacing:1.5px;padding:10px 16px;border-radius:40px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all .3s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.clink:hover,.clink:active{background:rgba(201,168,76,.14);border-color:var(--gold)}
+.clink svg{width:15px;height:15px;flex-shrink:0}
+.clink.phone{color:var(--gold)}
+.clink.insta{color:#C13584}
+@media(max-width:400px){
+  .clink{font-size:9px;padding:9px 12px;gap:5px}
+  .clink svg{width:13px;height:13px}
+}
+
+/* ── MODAL ── */
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:none;justify-content:center;align-items:flex-end;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.moverlay.open{display:flex}
+.mbox{width:100%;max-width:520px;background:#111;border-radius:20px 20px 0 0;max-height:92vh;display:flex;flex-direction:column;position:relative;animation:slideUp .35s cubic-bezier(.33,1,.68,1) forwards}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mhandle{width:40px;height:4px;background:rgba(255,255,255,.18);border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.mclose{position:absolute;top:60px;right:14px;z-index:10;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:13px;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.mclose:hover{background:rgba(255,255,255,.15)}
+.mimg{width:100%;aspect-ratio:1/1;position:relative;flex-shrink:0;overflow:hidden}
+.mimg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(transparent,rgba(0,0,0,.7));pointer-events:none}
+.mimg img{width:100%;height:100%;object-fit:cover;display:block}
+.mimg-num{position:absolute;bottom:14px;left:16px;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.65);z-index:2}
+.mimg-g{position:absolute;bottom:14px;right:16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border:1px solid;border-radius:2px;z-index:2}
+.mimg-g.erkak{color:#85B8D4;border-color:rgba(133,184,212,.6);background:rgba(0,0,0,.5)}
+.mimg-g.ayol{color:#D490BE;border-color:rgba(212,144,190,.6);background:rgba(0,0,0,.5)}
+.mimg-g.unisex{color:var(--gold);border-color:rgba(201,168,76,.6);background:rgba(0,0,0,.5)}
+
+.mscroll{overflow-y:auto;padding:22px 22px 48px;flex:1}
+.mbrand{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.mname{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--tp);line-height:1.2;margin-bottom:14px}
+.mmetarow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.mpill{font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);color:var(--tm);border-radius:2px}
+.mpill.gold{color:var(--gold);border-color:rgba(201,168,76,.35)}
+.mmprice{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-light);margin-left:auto;letter-spacing:1px}
+.mmprice span{font-size:10px;color:var(--tm);margin-left:3px}
+
+.msep{height:1px;background:var(--border);margin:18px 0}
+.msec{margin-bottom:6px}
+.msec-title{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:14px}
+.mnote-row{display:flex;gap:14px;margin-bottom:9px;align-items:flex-start}
+.nlbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);width:54px;flex-shrink:0;line-height:1.8}
+.nval{font-size:12px;color:var(--tp);line-height:1.7;opacity:.9}
+.mfor-txt{font-size:13px;color:var(--tm);line-height:1.8}
+
+/* ── SEARCH ── */
+.sbar{background:#0d0d0d;border-bottom:1px solid var(--border);padding:14px 20px;display:flex;justify-content:center;position:sticky;top:0;z-index:101}
+.swrap{position:relative;width:100%;max-width:500px}
+.sico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--tm);font-size:13px;pointer-events:none}
+.sinp{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--tp);font-family:'Montserrat',sans-serif;font-weight:300;font-size:12px;letter-spacing:1.5px;padding:11px 40px 11px 40px;border-radius:2px;outline:none;transition:border-color .3s;-webkit-appearance:none}
+.sinp::placeholder{color:var(--tm);font-size:11px;letter-spacing:1px}
+.sinp:focus{border-color:rgba(201,168,76,.6)}
+.sclr{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--tm);font-size:14px;cursor:pointer;padding:4px;display:none;line-height:1;transition:color .2s}
+.sclr.vis{display:block}
+.sclr:hover{color:var(--tp)}
+.sempty{display:none;text-align:center;padding:80px 20px;grid-column:1/-1;width:100%}
+.sempty.show{display:flex;flex-direction:column;align-items:center}
+.sempty-ico{font-size:36px;margin-bottom:18px;opacity:.35}
+.sempty-txt{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--tm);letter-spacing:2px;margin-bottom:8px}
+.sempty-sub{font-size:9px;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase}
+
+/* ── TOP ATIRLAR ── */
+.card.is-top{border:1px solid rgba(255,130,0,.45);box-shadow:0 0 0 1px rgba(255,130,0,.12),0 6px 28px rgba(255,100,0,.1)}
+.top-fire{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:5;pointer-events:none}
+.top-fire span{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(90deg,#d94f00,#ff9200);color:#fff;font-family:'Montserrat',sans-serif;font-size:7px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:0 0 10px 10px;white-space:nowrap;box-shadow:0 2px 10px rgba(255,100,0,.4)}
+
+/* ── VIEWS ── */
+.cviews{display:flex;align-items:center;gap:4px;font-size:8px;letter-spacing:1px;color:var(--tm);margin-top:6px}
+.cviews svg{width:10px;height:10px;opacity:.5}
+
+/* ── WISHLIST ── */
+.wish-btn{position:absolute;bottom:10px;right:10px;z-index:5;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .25s;-webkit-tap-highlight-color:transparent;padding:0;line-height:1}
+.wish-btn:hover{color:#ff4d6d;border-color:rgba(255,77,109,.5);background:rgba(255,77,109,.12)}
+.wish-btn.active{color:#ff4d6d !important;border-color:rgba(255,77,109,.5);background:rgba(255,77,109,.12)}
+
+/* ===== DESKTOP ≥1024px ===== */
+@media(min-width:1024px){
+  .hdr{padding:90px 80px 64px}
+  .logo{font-size:80px;letter-spacing:18px}
+  .fbar{padding:28px 60px;gap:10px}
+  .fb{padding:13px 36px;font-size:11px;letter-spacing:4px}
+  .stats{padding:0 40px}
+  .stat{padding:22px 48px}
+  .sval{font-size:30px}
+  .grid{grid-template-columns:repeat(4,1fr)}
+  .cname{font-size:20px}
+
+  /* Desktop modal — yon-yon joylashuv */
+  .moverlay{align-items:center;padding:24px}
+  .mbox{
+    flex-direction:row;
+    border-radius:12px;
+    max-width:900px;
+    max-height:88vh;
+    overflow:hidden;
+    animation:zoomIn .3s cubic-bezier(.33,1,.68,1) forwards;
+  }
+  @keyframes zoomIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+  .mhandle{display:none}
+  .mimg{
+    width:420px;
+    min-width:420px;
+    aspect-ratio:unset;
+    align-self:stretch;
+    flex-shrink:0;
+    border-radius:12px 0 0 12px;
+    overflow:hidden;
+  }
+  .mimg img{height:100%;object-fit:cover}
+  .mimg::after{height:120px}
+  .mclose{top:16px;right:16px;background:rgba(0,0,0,.5)}
+  .mscroll{padding:36px 36px 48px;overflow-y:auto}
+  .mbrand{font-size:9px}
+  .mname{font-size:34px}
+  .mmprice{font-size:26px}
+  .mfor-txt{font-size:14px}
+  footer{padding:60px 40px}
+}
+
+/* ===== TABLET 600–1023px ===== */
+@media(min-width:600px) and (max-width:1023px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .moverlay{align-items:flex-end}
+  .mbox{max-width:520px;border-radius:20px 20px 0 0}
+}
+
+/* ===== MOBIL ≤599px ===== */
+@media(max-width:599px){
+  .hdr{padding:36px 16px 28px}
+  .logo{font-size:36px;letter-spacing:6px}
+  .tagline{font-size:8px;letter-spacing:3px}
+  .sub{font-size:14px;letter-spacing:2px;margin-bottom:16px}
+
+  /* Search mobile */
+  .sbar{padding:10px 12px}
+  .sinp{font-size:11px;padding:10px 36px 10px 38px}
+
+  /* Sticky filter - horizontally scrollable */
+  .fbar{
+    position:sticky;top:58px;z-index:100;
+    padding:10px 12px;gap:6px;
+    background:#0d0d0d;
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    justify-content:flex-start;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .fbar::-webkit-scrollbar{display:none}
+  .fb{padding:9px 14px;font-size:9px;letter-spacing:2px;flex:none;white-space:nowrap}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(2,1fr)}
+  .stat{padding:10px 12px;border-right:none;border-bottom:1px solid var(--border)}
+  .stat:nth-child(odd){border-right:1px solid var(--border)}
+  .sval{font-size:22px}
+  .slbl{font-size:7px}
+
+  /* Grid */
+  .grid{grid-template-columns:repeat(2,1fr);gap:0}
+  .cinfo{padding:10px 10px 14px}
+  .cbrand{font-size:7px;margin-bottom:3px}
+  .cname{font-size:15px;margin-bottom:8px}
+  .price-box{padding:6px 8px}
+  .price-val{font-size:14px}
+  .price-vol{font-size:8px}
+
+  /* Modal mobile */
+  .mbox{border-radius:16px 16px 0 0;max-height:96vh}
+  .mimg{aspect-ratio:1/0.9}
+  .mimg-num{font-size:8px}
+  .mscroll{padding:16px 16px 40px}
+  .mname{font-size:21px}
+  .mmetarow{gap:5px;margin-bottom:14px}
+  .mpill{font-size:7px;padding:3px 8px;letter-spacing:1px}
+  .mmprice{font-size:18px}
+  .mnote-row{margin-bottom:7px}
+  .nval{font-size:11px}
+  .mfor-txt{font-size:12px;line-height:1.7}
+
+  /* Notch xavfsizligi */
+  .mscroll{padding-bottom:max(40px,env(safe-area-inset-bottom))}
+  footer{padding-bottom:max(32px,env(safe-area-inset-bottom))}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <p class="tagline">Toshkent &nbsp;·&nbsp; Limited Edition &nbsp;·&nbsp; Original Fragrances</p>
+  <div class="logo">KHUSH<em>B</em>ÖY</div>
+  <p class="sub">Limited Edition Perfumes</p>
+  <div class="dvd"><span style="color:var(--gold);font-size:10px">✦</span></div>
+  <p style="font-size:10px;letter-spacing:3px;color:var(--tm);text-transform:uppercase">75 ta Premium Atir · 10 ml Decant</p>
+</header>
+
+<div class="sbar">
+  <div class="swrap">
+    <span class="sico">🔍</span>
+    <input class="sinp" id="searchInp" type="text" placeholder="Atir yoki brend nomini qidiring..." oninput="doSearch(this.value)" autocomplete="off" spellcheck="false">
+    <button class="sclr" id="searchClr" onclick="clearSearch()">✕</button>
+  </div>
+</div>
+
+<nav class="fbar">
+  <button class="fb active" onclick="doFilter('all',this)">Barchasi</button>
+  <button class="fb" onclick="doFilter('top',this)">🔥 Top Atirlar</button>
+  <button class="fb" onclick="doFilter('sevimli',this)">♡ Sevimlilar</button>
+  <button class="fb" onclick="doFilter('erkak',this)">Erkaklar</button>
+  <button class="fb" onclick="doFilter('ayol',this)">Ayollar</button>
+  <button class="fb" onclick="doFilter('unisex',this)">Unisex</button>
+</nav>
+
+<div class="stats">
+  <div class="stat"><div class="sval" id="sAll">75</div><div class="slbl">Ko'rsatilgan</div></div>
+  <div class="stat"><div class="sval" id="sE">0</div><div class="slbl">Erkaklar</div></div>
+  <div class="stat"><div class="sval" id="sA">0</div><div class="slbl">Ayollar</div></div>
+  <div class="stat"><div class="sval" id="sU">0</div><div class="slbl">Unisex</div></div>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<footer>
+  <div class="fbrand">KHUSHBÖY</div>
+  <p>© 2025 &nbsp;·&nbsp; Premium Limited Edition &nbsp;·&nbsp; Toshkent</p>
+</footer>
+
+<!-- Aloqa -->
+<div class="cbar">
+  <a class="clink phone" href="tel:+998911530000">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    +998 91 153 00 00
+  </a>
+  <a class="clink insta" href="https://www.instagram.com/khushboy_perfume/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    @khushboy_perfume
+  </a>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="moverlay" onclick="if(event.target===this)closeModal()">
+  <div class="mbox">
+    <div class="mhandle"></div>
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div class="mimg">
+      <img id="m-img" src="" alt="">
+      <div class="mimg-num" id="m-num"></div>
+      <div class="mimg-g" id="m-gbadge"></div>
+    </div>
+    <div class="mscroll">
+      <div class="mbrand" id="m-brand"></div>
+      <div class="mname" id="m-name"></div>
+      <div class="mmetarow">
+        <span class="mpill" id="m-gender"></span>
+        <span class="mpill gold">10 ml · Decant</span>
+        <div class="mmprice"><span id="m-price"></span><span>so'm</span></div>
+      </div>
+      <div class="msep"></div>
+      <div class="msec">
+        <div class="msec-title">Notalar</div>
+        <div class="mnote-row"><span class="nlbl">Yuqori</span><span class="nval" id="m-top"></span></div>
+        <div class="mnote-row"><span class="nlbl">Yurak</span><span class="nval" id="m-mid"></span></div>
+        <div class="mnote-row"><span class="nlbl">Asosiy</span><span class="nval" id="m-base"></span></div>
+      </div>
+      <div class="msep"></div>
+      <div class="msec">
+        <div class="msec-title">Kim uchun</div>
+        <p class="mfor-txt" id="m-for"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const P=[
+  {id:1,brand:"Stefano Ricci",name:"Stefano Ricci",g:"erkak",ml:10,price:200000,img:"images/perfume_01.jpg",
+   top:["Bergamot","Limon","Salqin notalar"],mid:["Terri","Kedr","Vetyver"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Muvaffaqiyatli va vakolatli erkaklar uchun. Rasmiy uchrashuvlar va premium kechki tadbirlar uchun ideal."},
+  {id:2,brand:"Creed",name:"Silver Mountain Water",g:"unisex",ml:10,price:200000,img:"images/perfume_02.jpg",
+   top:["Bergamot","Mandarin","Qora smorodina","Yashil choy"],mid:["Galbanum","Smorodina barglari"],base:["Musk","Sandal daraxti","Vetyver"],
+   desc:"Togʻ havosini eslatuvchi toza va yangilangan his. Har ikki jins uchun, kundalik va sport tadbirlarida ideal."},
+  {id:3,brand:"Creed",name:"Aventus",g:"erkak",ml:10,price:200000,img:"images/perfume_03.jpg",
+   top:["Ananas","Bergamot","Olma","Qora smorodina"],mid:["Atirgul","Qayin","Jasmin","Patchouli"],base:["Musk","Oakmoss","Ambergris","Vanil"],
+   desc:"Gʻolib va muvaffaqiyatli erkaklar uchun. Kuch va muvaffaqiyat ramzi. Rasmiy va kechki tadbirlar uchun."},
+  {id:4,brand:"Creed",name:"Absolu Aventus",g:"erkak",ml:10,price:150000,img:"images/perfume_04.jpg",
+   top:["Ananas","Bergamot","Limon"],mid:["Qayin","Atirgul","Jasmin"],base:["Ambergris","Musk","Oakmoss"],
+   desc:"Klassik Aventusning yanada toʻyimli va boy versiyasi. Ishbilarmon va zamonaviy erkaklar uchun."},
+  {id:5,brand:"Parfums de Marly",name:"Greenly",g:"unisex",ml:10,price:150000,img:"images/perfume_05.jpg",
+   top:["Bergamot","Greypfrut","Qora smorodina"],mid:["Binafsha","Geranium","Kardamon"],base:["Sandal daraxti","Musk","Vetyver"],
+   desc:"Freskiy va yoqimli his beruvchi. Bahor va yoz fasllarida, har ikki jins uchun mos."},
+  {id:6,brand:"Parfums de Marly",name:"Perseus",g:"erkak",ml:10,price:150000,img:"images/perfume_06.jpg",
+   top:["Bergamot","Greypfrut","Lavanda"],mid:["Geranium","Rozmarin"],base:["Sandal daraxti","Musk","Vetyver","Kedr"],
+   desc:"Kuchli va dadil erkaklar uchun. Kundalik va ish muhitida universal foydalanish uchun ideal."},
+  {id:7,brand:"Parfums de Marly",name:"Althaïr",g:"erkak",ml:10,price:150000,img:"images/perfume_07.jpg",
+   top:["Bergamot","Greypfrut","Qalampir"],mid:["Tutatqi","Qalampir","Kardamon"],base:["Ud","Sandal daraxti","Musk"],
+   desc:"Sirli va jozibali erkaklar uchun. Kechki tadbirlar va qishki fasl uchun ideal."},
+  {id:8,brand:"Parfums de Marly",name:"Layton",g:"erkak",ml:10,price:150000,img:"images/perfume_08.jpg",
+   top:["Olma","Bergamot","Greypfrut","Lavanda"],mid:["Jasmin","Geranium","Binafsha","Qalampir"],base:["Sandal daraxti","Vanil","Guayak yog'ochi"],
+   desc:"Zamonaviy va elegant erkaklar uchun. Barcha fasllar va tadbirlar uchun universal atir."},
+  {id:9,brand:"Le Labo",name:"Santal 33",g:"unisex",ml:10,price:180000,img:"images/perfume_09.jpg",
+   top:["Kardamon","Iris","Binafsha","Ambrox"],mid:["Sandal daraxti","Papirus","Kedr"],base:["Terri","Musk","Amber"],
+   desc:"Minimalist va zamonaviy insonlar uchun. Yil boʻyi ishlatiladigan universal atir. Ikkala jins uchun."},
+  {id:10,brand:"Le Labo",name:"Bergamote 22",g:"unisex",ml:10,price:150000,img:"images/perfume_10.jpg",
+   top:["Bergamot","Greypfrut","Neroli"],mid:["Siklamen","Petalia"],base:["Musk","Amber"],
+   desc:"Toza va yorqin his beruvchi. Bahor va yoz fasllarida ideal. Har ikki jins uchun mos."},
+  {id:11,brand:"Maison Crivelli",name:"Oud Maracuja",g:"unisex",ml:10,price:250000,img:"images/perfume_11.jpg",
+   top:["Marakuja","Bergamot","Ekzotik mevalar"],mid:["Ud","Atirgul","Jasmin"],base:["Musk","Amber","Vanil"],
+   desc:"Ekzotik va oʻziga xos his beruvchi. Kechki tadbirlar va maxsus kunlar uchun."},
+  {id:12,brand:"Maison Crivelli",name:"Hibiscus Mahajad",g:"ayol",ml:10,price:250000,img:"images/perfume_12.jpg",
+   top:["Gibiskus","Bergamot","Qizil rezavor"],mid:["Atirgul","Jasmin","Iris"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Romantikal va jozibali ayollar uchun. Bahor va yoz fasllarida, kundalik va kechki uchrashuv uchun ideal."},
+  {id:13,brand:"Marc-Antoine Barrois",name:"TILIA",g:"unisex",ml:10,price:150000,img:"images/perfume_13.jpg",
+   top:["Joʻka guli","Bergamot","Yashil notalar"],mid:["Jasmin","Qoʻngʻiroqgul"],base:["Musk","Amber","Oq yog'ochlar"],
+   desc:"Nozik va nafis insonlar uchun. Bahor kunlarida va kundalik foydalanish uchun."},
+  {id:14,brand:"Marc-Antoine Barrois",name:"Ganymede",g:"unisex",ml:10,price:200000,img:"images/perfume_14.jpg",
+   top:["Olcha","Bergamot","Pushti qalampir"],mid:["Orris","Binafsha","Atirgul"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Nozik va jozibali insonlar uchun. Kechki tadbirlar va romantik uchrashuvlar uchun."},
+  {id:15,brand:"Marc-Antoine Barrois",name:"Aldebaran",g:"unisex",ml:10,price:200000,img:"images/perfume_15.jpg",
+   top:["Bergamot","Limon","Kardamon"],mid:["Lavanda","Atirgul","Jasmin"],base:["Sandal daraxti","Musk","Vetyver"],
+   desc:"Kuchli va sirli insonlar uchun. Kuz va qish fasllarida, rasmiy tadbirlar uchun."},
+  {id:16,brand:"Louis Vuitton",name:"Symphony",g:"unisex",ml:10,price:220000,img:"images/perfume_16.jpg",
+   top:["Bergamot","Qalampir","Aldehidlar"],mid:["Geranium","Jasmin","Atirgul"],base:["Musk","Amber","Sandal daraxti","Vetyver"],
+   desc:"Hashamatli va elegant insonlar uchun. Rasmiy tadbirlar va premium muhitlar uchun."},
+  {id:17,brand:"Louis Vuitton",name:"Imagination",g:"erkak",ml:10,price:200000,img:"images/perfume_17.jpg",
+   top:["Greypfrut","Bergamot","Limon"],mid:["Limon oʻti","Zanjabil","Choy"],base:["Musk","Vetyver","Sandal daraxti"],
+   desc:"Aktiv va zamonaviy erkaklar uchun. Kundalik va sport tadbirlarida foydalanish uchun."},
+  {id:18,brand:"Louis Vuitton",name:"Stellar Times",g:"unisex",ml:10,price:220000,img:"images/perfume_18.jpg",
+   top:["Kardamon","Qalampir","Bergamot"],mid:["Tutatqi","Vetyver","Atirgul"],base:["Ud","Amber","Musk"],
+   desc:"Sirli va maqtovli insonlar uchun. Kechki tadbirlar va qishki fasl uchun ideal."},
+  {id:19,brand:"Louis Vuitton",name:"Lovers",g:"unisex",ml:10,price:180000,img:"images/perfume_19.jpg",
+   top:["Atirgul","Bergamot","Aldehidlar"],mid:["Iris","Jasmin","Geranium"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Romantikal va nafis insonlar uchun. Sevgi va maxsus kunlar uchun ideal."},
+  {id:20,brand:"Louis Vuitton",name:"Pacific Chill",g:"unisex",ml:10,price:180000,img:"images/perfume_20.jpg",
+   top:["Limon","Bergamot","Dengiz tuzi"],mid:["Dengiz notalari","Nilufar","Jasmin"],base:["Musk","Suzuvchi yog'och","Amber"],
+   desc:"Toza va yangilangan his beruvchi. Yoz va dengiz sayohatlari uchun ideal."},
+  {id:21,brand:"Louis Vuitton",name:"eLVes",g:"unisex",ml:10,price:150000,img:"images/perfume_21.jpg",
+   top:["Zanjabil","Bergamot","Pushti qalampir"],mid:["Qarag'ay","Kedr","Vetyver"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Dadil va oʻziga xos insonlar uchun. Kuz va qish fasllarida ideal."},
+  {id:22,brand:"Louis Vuitton",name:"L'Immensité",g:"erkak",ml:10,price:200000,img:"images/perfume_22.jpg",
+   top:["Zanjabil","Kardamon","Bergamot"],mid:["Kedr daraxti","Hedion","Vetyver"],base:["Sandal daraxti","Musk","Vetyver"],
+   desc:"Ishonchli va zamonaviy erkaklar uchun. Kundalik va ish muhitida universal."},
+  {id:23,brand:"Louis Vuitton",name:"Afternoon Swim",g:"unisex",ml:10,price:150000,img:"images/perfume_23.jpg",
+   top:["Bergamot","Yashil notalar","Aldehidlar"],mid:["Nilufar","Jasmin","Suv notalari"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Toza va freskiy his beruvchi. Yoz va suv sporti faoliyatlari uchun."},
+  {id:24,brand:"Louis Vuitton",name:"California Dream",g:"unisex",ml:10,price:150000,img:"images/perfume_24.jpg",
+   top:["Bergamot","Mandarin","Limon"],mid:["Jasmin","Iris","Neroli"],base:["Sandal daraxti","Musk","Amber","Vanil"],
+   desc:"Optimistik va erkin ruhli insonlar uchun. Bahor va yoz fasllarida, kundalik uchun."},
+  {id:25,brand:"Memo Paris",name:"Italian Leather",g:"unisex",ml:10,price:120000,img:"images/perfume_25.jpg",
+   top:["Bergamot","Kardamon","Pushti qalampir"],mid:["Terri","Atirgul","Qayin"],base:["Ud","Amber","Musk","Labdanum"],
+   desc:"Kuchli va maqtovli insonlar uchun. Kuz va qish fasllarida, rasmiy tadbirlar uchun."},
+  {id:26,brand:"Amouage",name:"Guidance",g:"erkak",ml:10,price:150000,img:"images/perfume_26.jpg",
+   top:["Bergamot","Kardamon","Qalampir"],mid:["Orris","Atirgul","Jasmin","Geranium"],base:["Ud","Sandal daraxti","Musk","Terri"],
+   desc:"Premium va hashamatli his istaydigan erkaklar uchun. Kechki tadbirlar va maxsus kunlar uchun."},
+  {id:27,brand:"Nasomatto",name:"Black Afgano",g:"unisex",ml:10,price:180000,img:"images/perfume_27.jpg",
+   top:["Qahva","Tutatqi","Qatron"],mid:["Ud","Qatron","Labdanum"],base:["Musk","Amber","Mirra"],
+   desc:"Qoʻrqmas va original insonlar uchun. Kechki tadbirlar va sovuq fasllar uchun."},
+  {id:28,brand:"Hormone Paris",name:"GABA",g:"unisex",ml:10,price:150000,img:"images/perfume_28.jpg",
+   top:["Bergamot","Neroli","Aldehidlar"],mid:["Jasmin","Atirgul","Nilufar"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Tinchushtiruvchi va xotirjamlashtiruvchi xushboʻy. Stressli kunlarda va dam olish vaqtida ideal."},
+  {id:29,brand:"Penhaligon's",name:"The Blazing Mr Sam",g:"erkak",ml:10,price:150000,img:"images/perfume_29.jpg",
+   top:["Bergamot","Greypfrut","Qalampir"],mid:["Viski","Tamaki","Terri"],base:["Terri","Musk","Amber","Vetyver"],
+   desc:"Klassik va maqtovli erkaklar uchun. Kechki uchrashuvlar va qishki muhit uchun."},
+  {id:30,brand:"Calvin Klein",name:"Calvin Klein",g:"unisex",ml:10,price:80000,img:"images/perfume_30.jpg",
+   top:["Bergamot","Mandarin","Yashil barglar"],mid:["Jasmin","Atirgul","Nilufar"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Zamonaviy va yengil his beruvchi. Kundalik foydalanish uchun, ikkala jins uchun mos."},
+  {id:31,brand:"YSL",name:"Libre",g:"ayol",ml:10,price:120000,img:"images/perfume_31.jpg",
+   top:["Lavanda","Mandarin","Petitgrain"],mid:["Apelsin guli","Jasmin","Lavanda"],base:["Musk","Vanil","Ambergris","Kedr"],
+   desc:"Mustaqil va kuchli ayollar uchun. Kundalik va kechki tadbirlar uchun."},
+  {id:32,brand:"Givenchy",name:"Gentleman",g:"erkak",ml:10,price:100000,img:"images/perfume_32.jpg",
+   top:["Nok","Iris","Bergamot"],mid:["Qalampir","Iris","Geranium"],base:["Vetyver","Zamsha","Kedr"],
+   desc:"Elegant va zamonaviy erkaklar uchun. Ish muhiti va rasmiy tadbirlar uchun."},
+  {id:33,brand:"Versace",name:"Dylan Purple",g:"ayol",ml:10,price:120000,img:"images/perfume_33.jpg",
+   top:["Kassís","Anor","Sitrus"],mid:["Binafsha","Pion","Frezia"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Romantikal va yorqin ayollar uchun. Bahor va yoz fasllarida, kundalik uchun."},
+  {id:34,brand:"Gucci",name:"Flora",g:"ayol",ml:10,price:120000,img:"images/perfume_34.jpg",
+   top:["Shaftoli","Sitrus","Aldehidlar"],mid:["Atirgul","Pion","Geranium"],base:["Sandal daraxti","Musk","Patchouli"],
+   desc:"Nozik va feminil ayollar uchun. Kundalik va romantik tadbirlar uchun."},
+  {id:35,brand:"Calvin Klein",name:"Euphoria Men",g:"erkak",ml:10,price:80000,img:"images/perfume_35.jpg",
+   top:["Qalampir","Zarbali oʻtlar","Zanjabil"],mid:["Qora bazilika","Kiparis","Rom"],base:["Zamsha","Amber","Musk"],
+   desc:"Seksual va oʻziga ishonchli erkaklar uchun. Kechki uchrashuvlar uchun ideal."},
+  {id:36,brand:"Emporio Armani",name:"Stronger With You",g:"erkak",ml:10,price:150000,img:"images/perfume_36.jpg",
+   top:["Pushti qalampir","Shoʻr karamel","Zarbali oʻtlar"],mid:["Kardamon","Binafsha bargi","Lavanda"],base:["Sandal daraxti","Musk","Amber"],
+   desc:"Romantik va kuchli erkaklar uchun. Kuzgi va qishki kunlar, kechki tadbirlar uchun."},
+  {id:37,brand:"Carolina Herrera",name:"212 Men Sexy",g:"erkak",ml:10,price:80000,img:"images/perfume_37.jpg",
+   top:["Qalampir","Bergamot","Neroli"],mid:["Kardamon","Zarbali oʻtlar","Vetyver"],base:["Sandal daraxti","Musk","Amber"],
+   desc:"Zamonaviy va jozibali erkaklar uchun. Kechki uchrashuvlar va yozgi tunlar uchun."},
+  {id:38,brand:"Orto Parisi",name:"Megamare",g:"unisex",ml:10,price:180000,img:"images/perfume_38.jpg",
+   top:["Dengiz notalari","Ambergris","Bergamot"],mid:["Suv oʻti","Musk","Dengiz akkord"],base:["Amber","Musk","Suzuvchi yog'och"],
+   desc:"Dengiz muhitini sevuvchi insonlar uchun. Yoz va suv faoliyatlari uchun."},
+  {id:39,brand:"Chanel",name:"Chance Eau Tendre",g:"ayol",ml:10,price:110000,img:"images/perfume_39.jpg",
+   top:["Greypfrut","Behi","Aldehid"],mid:["Giatsin","Jasmin","Iris"],base:["Oq musk","Iris","Amber","Kedr"],
+   desc:"Yosh va shod-xurram ayollar uchun. Bahor va yoz fasllarida, kundalik uchun."},
+  {id:40,brand:"Chanel",name:"Coco Mademoiselle",g:"ayol",ml:10,price:110000,img:"images/perfume_40.jpg",
+   top:["Apelsin","Bergamot"],mid:["Atirgul","Jasmin","Qoʻngʻiroqgul"],base:["Patchouli","Vetyver","Vanil","Oq musk"],
+   desc:"Klassik va feminil ayollar uchun. Har qanday tadbirga mos, universal atir."},
+  {id:41,brand:"Chanel",name:"Chance Eau Fraîche",g:"ayol",ml:10,price:110000,img:"images/perfume_41.jpg",
+   top:["Sitrus","Suv giatsin","Limon"],mid:["Jasmin","Tik daraxti"],base:["Amber","Musk","Kedr"],
+   desc:"Freskiy va aktiv ayollar uchun. Yoz va bahor fasllarida, kundalik uchun."},
+  {id:42,brand:"Chanel",name:"Égoïste Platinum",g:"erkak",ml:10,price:150000,img:"images/perfume_42.jpg",
+   top:["Bergamot","Rozmarin","Aldehidlar"],mid:["Geranium","Sandal daraxti","Qoranfil"],base:["Kedr daraxti","Vetyver","Amber"],
+   desc:"Klassik va elegant erkaklar uchun. Rasmiy tadbirlar va kechki uchrashuvlar uchun."},
+  {id:43,brand:"Dolce & Gabbana",name:"L'Impératrice",g:"ayol",ml:10,price:110000,img:"images/perfume_43.jpg",
+   top:["Tarvuz","Kivi","Kassís"],mid:["Siklamen","Atirgul","Suv nilufari"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Yengil va yoqimli his beruvchi. Yozgi kunlarda va kundalik foydalanish uchun."},
+  {id:44,brand:"Lattafa",name:"Now Black",g:"erkak",ml:10,price:75000,img:"images/perfume_44.jpg",
+   top:["Bergamot","Zaʻfaron","Qora qalampir"],mid:["Ud","Atirgul","Geranium"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Kuchli va sir-asrorli erkaklar uchun. Kechki tadbirlar va sovuq fasllar uchun."},
+  {id:45,brand:"Clive Christian",name:"XXI Art Deco",g:"unisex",ml:10,price:200000,img:"images/perfume_45.jpg",
+   top:["Bergamot","Mandarin","Aldehidlar"],mid:["Atirgul","Iris","Jasmin"],base:["Sandal daraxti","Musk","Amber","Vetyver"],
+   desc:"Ultra-premium his istaydigan insonlar uchun. Maxsus kunlar va hashamatli muhitlar uchun."},
+  {id:46,brand:"Nasomatto",name:"Fantomas",g:"unisex",ml:10,price:120000,img:"images/perfume_46.jpg",
+   top:["Bergamot","Aldehidlar"],mid:["Tutatqi","Yog'och","Musk"],base:["Musk","Qatron","Labdanum"],
+   desc:"Avant-garde va original insonlar uchun. Kechki tadbirlar va noyob muhitlar uchun."},
+  {id:47,brand:"Kilian Paris",name:"Angels' Share",g:"unisex",ml:10,price:180000,img:"images/perfume_47.jpg",
+   top:["Konyak","Darçin","Kardamon"],mid:["Pralin","Tonka loviya","Jasmin"],base:["Vanil","Sandal daraxti","Oakmoss","Amber"],
+   desc:"Shirin va jozibali his beruvchi. Kuz va qish fasllarida, romantik kechalar uchun."},
+  {id:48,brand:"Calvin Klein",name:"CK One",g:"unisex",ml:10,price:75000,img:"images/perfume_48.jpg",
+   top:["Ananas","Papaya","Bergamot","Mandarin"],mid:["Kardamon","Jasmin","Binafsha","Atirgul"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Freskiy va zamonaviy. Ikkala jins uchun universal, kundalik foydalanish uchun ideal."},
+  {id:49,brand:"Essential Parfums",name:"Bois Impérial",g:"unisex",ml:10,price:150000,img:"images/perfume_49.jpg",
+   top:["Bergamot","Kardamon","Pushti qalampir"],mid:["Sandal daraxti","Tutatqi","Atirgul"],base:["Ud","Amber","Musk"],
+   desc:"Qimmatbaho yog'och va sharqona his beruvchi. Kechki tadbirlar va maxsus kunlar uchun."},
+  {id:50,brand:"Dior",name:"Homme Cologne",g:"erkak",ml:10,price:75000,img:"images/perfume_50.jpg",
+   top:["Bergamot","Limon","Neroli"],mid:["Iris","Atirgul","Lavanda"],base:["Vetyver","Amber","Musk"],
+   desc:"Toza va elegant erkaklar uchun. Kunduzgi ish muhiti va kundalik foydalanish uchun."},
+  {id:51,brand:"Kilian Paris",name:"Good Girl Gone Bad",g:"ayol",ml:10,price:180000,img:"images/perfume_51.jpg",
+   top:["Giatsin","Neroli","Bergamot"],mid:["Atirgul","Jasmin","Tuberoza","Nilufar"],base:["Musk","Amber","Sandal daraxti"],
+   desc:"Jozibali va seksual ayollar uchun. Kechki tadbirlar va romantik uchrashuvlar uchun."},
+  {id:52,brand:"Giorgio Armani",name:"My Way",g:"ayol",ml:10,price:120000,img:"images/perfume_52.jpg",
+   top:["Bergamot","Kardamon"],mid:["Tuberoza","Apelsin guli","Hind jasmini"],base:["Oq musk","Virjiniya kedri","Vanil"],
+   desc:"Zamonaviy va mustaqil ayollar uchun. Kundalik va ish muhitida universal."},
+  {id:53,brand:"Dior",name:"Miss Dior",g:"ayol",ml:10,price:120000,img:"images/perfume_53.jpg",
+   top:["Kalabriya bergamoti","Qon apelsini"],mid:["Damashq atirguli","Grasse atirguli"],base:["Patchouli","Amber","Musk"],
+   desc:"Klassik va romantikal ayollar uchun. Har qanday tadbirga mos, universal atir."},
+  {id:54,brand:"Victoria's Secret",name:"Aqua Kiss",g:"ayol",ml:10,price:80000,img:"images/perfume_54.jpg",
+   top:["Frezia","Dengiz tuman","Bergamot"],mid:["Jasmin","Pion","Suv nilufari"],base:["Musk","Suzuvchi yog'och","Sandal daraxti"],
+   desc:"Yosh va freskiy ayollar uchun. Bahor va yoz fasllarida, kundalik uchun."},
+  {id:55,brand:"Victoria's Secret",name:"Very Sexy Sea",g:"ayol",ml:10,price:120000,img:"images/perfume_55.jpg",
+   top:["Dengiz notalari","Bergamot","Sitrus"],mid:["Dengiz nilufari","Jasmin","Frezia"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Seksual va jozibali ayollar uchun. Yozgi tadbirlar va kechki kechalar uchun."},
+  {id:56,brand:"Victoria's Secret",name:"Bombshell",g:"ayol",ml:10,price:120000,img:"images/perfume_56.jpg",
+   top:["Binafsha marakuja","Pion"],mid:["Vanil orkide","Pion","Musk"],base:["Sandal daraxti","Musk","Amber"],
+   desc:"Yorqin va kuchli ayollar uchun. Kundalik va kechki tadbirlar uchun."},
+  {id:57,brand:"Victoria's Secret",name:"Very Sexy Orchid",g:"ayol",ml:10,price:120000,img:"images/perfume_57.jpg",
+   top:["Pion","Siklamen","Bergamot"],mid:["Orkide","Atirgul","Jasmin"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Nozik va seksual ayollar uchun. Kechki tadbirlar va maxsus kunlar uchun."},
+  {id:58,brand:"HFC",name:"Devil's Intrigue",g:"ayol",ml:10,price:180000,img:"images/perfume_58.jpg",
+   top:["Bergamot","Atirgul","Zaʻfaron"],mid:["Ud","Tutatqi","Jasmin"],base:["Musk","Amber","Mirra"],
+   desc:"Sirli va kuchli ayollar uchun. Kechki tadbirlar va qishki muhitlar uchun."},
+  {id:59,brand:"Roja Parfums",name:"Elysium",g:"erkak",ml:10,price:180000,img:"images/perfume_59.jpg",
+   top:["Greypfrut","Bergamot","Limon"],mid:["Archa","Jasmin","Geranium"],base:["Sandal daraxti","Vetyver","Musk","Amber"],
+   desc:"Premium va sof his beruvchi. Kundalik va bahor-yoz fasllarida universal."},
+  {id:60,brand:"Paco Rabanne",name:"Invictus",g:"erkak",ml:10,price:80000,img:"images/perfume_60.jpg",
+   top:["Greypfrut","Dengiz notalari","Yashil mandarin"],mid:["Dafna bargi","Jasmin","Hedion"],base:["Guayak yog'ochi","Oakmoss","Ambergris"],
+   desc:"Kuchli va gʻolib erkaklar uchun. Sport va aktiv hayot tarzida, kundalik uchun."},
+  {id:61,brand:"Byredo",name:"Bal d'Afrique",g:"unisex",ml:10,price:150000,img:"images/perfume_61.jpg",
+   top:["Bergamot","Limon","Neroli","Binafsha"],mid:["Qoʻshqoʻshiq gul","Siklamen","Jasmin"],base:["Afrika yog'ochlari","Musk","Vanil","Sandal daraxti"],
+   desc:"Ekzotik va sayohat ruhini sevuvchilar uchun. Yil boʻyi foydalanish mumkin."},
+  {id:62,brand:"Clive Christian",name:"Rock Rose",g:"unisex",ml:10,price:150000,img:"images/perfume_62.jpg",
+   top:["Atirgul","Bergamot","Pushti qalampir"],mid:["Geranium","Jasmin","Labdanum"],base:["Sandal daraxti","Musk","Amber","Vetyver"],
+   desc:"Premium his istaydigan insonlar uchun. Bahor va yoz fasllarida, maxsus kunlar uchun."},
+  {id:63,brand:"Byredo",name:"Mojave Ghost",g:"unisex",ml:10,price:150000,img:"images/perfume_63.jpg",
+   top:["Ambrette","Magnoliya","Yog'och notalari"],mid:["Binafsha","Sandal daraxti","Sapodilla"],base:["Amber","Musk","Oq yog'ochlar"],
+   desc:"Minimalist va zamonaviy insonlar uchun. Yil boʻyi universal foydalanish uchun."},
+  {id:64,brand:"Escentric Molecules",name:"Molecule 02",g:"unisex",ml:10,price:150000,img:"images/perfume_64.jpg",
+   top:["Ambroxan"],mid:["Ambroxan"],base:["Ambroxan"],
+   desc:"Bitta molekuladan iborat noyob atir. Teriga singib, har kishida individual xushboʻy yaratadi. Yil boʻyi universal."},
+  {id:65,brand:"Escentric Molecules",name:"Molecule 09",g:"unisex",ml:10,price:80000,img:"images/perfume_65.jpg",
+   top:["Kashmeran"],mid:["Kashmeran"],base:["Kashmeran"],
+   desc:"Nozik va ipakdek yumshoq his beruvchi molekula atir. Teriga singib, individual xushboʻy yaratadi. Yil boʻyi universal."},
+  {id:66,brand:"Arabian Oud",name:"Madawi",g:"unisex",ml:10,price:150000,img:"images/perfume_66.jpg",
+   top:["Zaʻfaron","Atirgul","Bergamot"],mid:["Ud","Tutatqi","Atirgul"],base:["Amber","Musk","Sandal daraxti"],
+   desc:"Sharqona va sirli his beruvchi. Kechki tadbirlar va maxsus kunlar uchun."},
+  {id:67,brand:"Tom Ford",name:"Oud Wood",g:"unisex",ml:10,price:200000,img:"images/perfume_67.jpg",
+   top:["Atirgul yog'ochi","Kardamon","Qalampir"],mid:["Ud","Sandal daraxti","Vetyver"],base:["Tonka loviya","Amber","Musk"],
+   desc:"Zamonaviy va hashamatli his beruvchi. Kechki tadbirlar va qishki fasl uchun."},
+  {id:68,brand:"Boadicea",name:"Hanuman",g:"erkak",ml:10,price:220000,img:"images/perfume_68.jpg",
+   top:["Bergamot","Kardamon","Limon"],mid:["Ud","Atirgul","Jasmin"],base:["Sandal daraxti","Amber","Musk"],
+   desc:"Kuchli va maqtovli erkaklar uchun. Kechki tadbirlar va maxsus kunlar uchun."},
+  {id:69,brand:"Boadicea",name:"Aqua Sapphire",g:"unisex",ml:10,price:250000,img:"images/perfume_69.jpg",
+   top:["Bergamot","Dengiz notalari","Limon"],mid:["Jasmin","Atirgul","Dengiz akkord"],base:["Sandal daraxti","Musk","Amber"],
+   desc:"Toza va maqtovli his beruvchi. Yoz va bahor fasllarida, maxsus kunlar uchun."},
+  {id:70,brand:"Bvlgari",name:"Le Gemme Tygar",g:"erkak",ml:10,price:200000,img:"images/perfume_70.jpg",
+   top:["Zaʻfaron","Bergamot","Qora qalampir"],mid:["Ud","Yoʻlbars koʻzi","Atirgul"],base:["Sandal daraxti","Amber","Musk","Terri"],
+   desc:"Kuchli va hashamatli erkaklar uchun. Kechki premium tadbirlar uchun."},
+  {id:71,brand:"Ex Nihilo",name:"Blue Talisman",g:"unisex",ml:10,price:200000,img:"images/perfume_71.jpg",
+   top:["Bergamot","Dengiz notalari","Greypfrut"],mid:["Koʻk iris","Jasmin","Binafsha"],base:["Musk","Sandal daraxti","Amber"],
+   desc:"Nozik va sirli his beruvchi. Yil boʻyi universal, maxsus kunlar uchun."},
+  {id:72,brand:"Jean Paul Gaultier",name:"Le Beau",g:"erkak",ml:10,price:150000,img:"images/perfume_72.jpg",
+   top:["Kokos","Bergamot","Greypfrut"],mid:["Suv nilufari","Vetyver","Tonka loviya"],base:["Tonka loviya","Musk","Kokos"],
+   desc:"Yengil va yoqimli erkaklar uchun. Yoz va bahor fasllarida, kundalik uchun."},
+  {id:73,brand:"Roja Parfums",name:"Isola Blu",g:"unisex",ml:10,price:220000,img:"images/perfume_73.jpg",
+   top:["Bergamot","Limon","Apelsin","Greypfrut"],mid:["Jasmin","Atirgul","Iris"],base:["Sandal daraxti","Musk","Amber","Vetyver"],
+   desc:"Ultra-premium his istaydigan insonlar uchun. Maxsus kunlar va hashamatli muhitlar uchun."},
+  {id:74,brand:"Niche",name:"Amber Wood",g:"unisex",ml:10,price:150000,img:"images/perfume_74.jpg",
+   top:["Bergamot","Kardamon","Pushti qalampir"],mid:["Ud","Atirgul","Geranium"],base:["Amber","Sandal daraxti","Musk"],
+   desc:"Issiq va yoqimli his beruvchi. Kuz va qish fasllarida, kechki tadbirlar uchun."},
+  {id:75,brand:"Tiziana Terenzi",name:"Kirke",g:"unisex",ml:10,price:120000,img:"images/perfume_75.jpg",
+   top:["Marakuja","Bergamot","Sitrus"],mid:["Jasmin","Atirgul","Nilufar"],base:["Amber","Musk","Sandal daraxti","Vanil"],
+   desc:"Ekzotik va maftunkor his beruvchi. Kechki tadbirlar va maxsus kunlar uchun."},
+];
+
+const GL={erkak:"Erkak",ayol:"Ayol",unisex:"Unisex"};
+const TOP_IDS=[69,17,16,18,3,28,1];
+const WISH_KEY='khushboy_wish';
+let wishSet=new Set(JSON.parse(localStorage.getItem(WISH_KEY)||'[]'));
+
+function fmt(n){return n.toLocaleString('uz-UZ');}
+
+function getViews(id){return Math.floor(50+Math.abs(Math.sin(id*127.1+43.7))*900);}
+
+const VIEWS_KEY='khushboy_views';
+let viewsData=JSON.parse(localStorage.getItem(VIEWS_KEY)||'{}');
+function getDisplayViews(id){return getViews(id)+(viewsData[id]||0)*10;}
+function incrementView(id){
+  viewsData[id]=(viewsData[id]||0)+1;
+  localStorage.setItem(VIEWS_KEY,JSON.stringify(viewsData));
+  const el=document.querySelector(`.card[data-id="${id}"] .views-num`);
+  if(el)el.textContent=getDisplayViews(id);
+}
+
+function toggleWish(e,id){
+  e.stopPropagation();
+  wishSet.has(id)?wishSet.delete(id):wishSet.add(id);
+  localStorage.setItem(WISH_KEY,JSON.stringify([...wishSet]));
+  const btn=document.querySelector(`.wish-btn[data-id="${id}"]`);
+  if(btn){btn.classList.toggle('active',wishSet.has(id));btn.textContent=wishSet.has(id)?'♥':'♡';}
+  if(_activeGender==='sevimli')_applyFilters();
+}
+
+function initScrollAnim(){
+  const obs=new IntersectionObserver(entries=>{
+    let d=0;
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const delay=d;setTimeout(()=>e.target.classList.remove('anim-hidden'),delay);
+        d+=65;obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.06,rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.card').forEach(c=>obs.observe(c));
+}
+
+function buildCards(){
+  const grid=document.getElementById('grid');
+  const cnt={erkak:0,ayol:0,unisex:0};
+  P.forEach(p=>{
+    cnt[p.g]++;
+    const isTop=TOP_IDS.includes(p.id);
+    const isWish=wishSet.has(p.id);
+    const art=document.createElement('article');
+    art.className='card'+(isTop?' is-top':'');
+    art.dataset.gender=p.g;
+    art.dataset.id=p.id;
+    art.classList.add('anim-hidden');
+    art.onclick=()=>openModal(p.id);
+    art.innerHTML=`
+      ${isTop?'<div class="top-fire"><span>🔥 Top Atir</span></div>':''}
+      <div class="img-wrap">
+        <span class="cnum">${String(p.id).padStart(2,'0')}</span>
+        <span class="cgender ${p.g}">${GL[p.g]}</span>
+        <img src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy">
+        <button class="wish-btn${isWish?' active':''}" data-id="${p.id}" onclick="toggleWish(event,${p.id})">${isWish?'♥':'♡'}</button>
+      </div>
+      <div class="cinfo">
+        <div class="cbrand">${p.brand}</div>
+        <div class="cname">${p.name}</div>
+        <div class="price-box">
+          <span class="price-vol">${p.ml} ml</span>
+          <div><span class="price-val">${fmt(p.price)}</span><span class="price-cur">so'm</span></div>
+        </div>
+        <div class="cviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span class="views-num">${getDisplayViews(p.id)}</span> ko'rish</div>
+      </div>`;
+    grid.appendChild(art);
+  });
+  document.getElementById('sE').textContent=cnt.erkak;
+  document.getElementById('sA').textContent=cnt.ayol;
+  document.getElementById('sU').textContent=cnt.unisex;
+
+  const empty=document.createElement('div');
+  empty.className='sempty';empty.id='sempty';
+  empty.innerHTML='<div class="sempty-ico">🔍</div><div class="sempty-txt">Atir topilmadi</div><div class="sempty-sub">Boshqa nom bilan urinib ko\'ring</div>';
+  grid.appendChild(empty);
+}
+
+// ── Fuzzy search ──
+let _activeGender='all', _searchQ='';
+
+function _norm(s){
+  return s.toLowerCase()
+    .replace(/ö/g,'o').replace(/ü/g,'u').replace(/ä/g,'a')
+    .replace(/ğ/g,'g').replace(/ş/g,'s').replace(/ç/g,'c')
+    .replace(/ı/g,'i').replace(/['']/g,'')
+    .trim();
+}
+
+function _lev(a,b){
+  const m=a.length,n=b.length;
+  const d=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)
+    d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1]);
+  return d[m][n];
+}
+
+function _fuzzy(query,target){
+  const q=_norm(query), t=_norm(target);
+  if(!q)return true;
+  if(t.includes(q))return true;
+  const qw=q.split(/\s+/), tw=t.split(/\s+/);
+  return qw.every(qword=>{
+    if(qword.length<3)return t.includes(qword);
+    return tw.some(tword=>{
+      if(tword.includes(qword)||qword.includes(tword))return true;
+      const maxD=qword.length<=4?1:2;
+      return _lev(qword,tword.substring(0,qword.length+2))<=maxD;
+    });
+  });
+}
+
+function _applyFilters(){
+  let vis=0;
+  document.querySelectorAll('.card').forEach(c=>{
+    const pid=parseInt(c.dataset.id);
+    const p=P.find(x=>x.id===pid);
+    let gOk;
+    if(_activeGender==='all') gOk=true;
+    else if(_activeGender==='top') gOk=TOP_IDS.includes(pid);
+    else if(_activeGender==='sevimli') gOk=wishSet.has(pid);
+    else gOk=c.dataset.gender===_activeGender;
+    const sOk=!_searchQ||_fuzzy(_searchQ,p.brand+' '+p.name);
+    const show=gOk&&sOk;
+    c.classList.toggle('hidden',!show);
+    if(show)vis++;
+  });
+  document.getElementById('sAll').textContent=vis;
+  const empty=document.getElementById('sempty');
+  if(empty)empty.classList.toggle('show',vis===0);
+}
+
+function doFilter(type,btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  _activeGender=type;
+  _applyFilters();
+}
+
+function doSearch(val){
+  _searchQ=val.trim();
+  document.getElementById('searchClr').classList.toggle('vis',!!_searchQ);
+  _applyFilters();
+}
+
+function clearSearch(){
+  document.getElementById('searchInp').value='';
+  doSearch('');
+}
+
+function openModal(id){
+  const p=P.find(x=>x.id===id);
+  if(!p)return;
+  incrementView(id);
+  document.getElementById('m-img').src=p.img;
+  document.getElementById('m-img').alt=p.brand+' '+p.name;
+  document.getElementById('m-num').textContent='№ '+String(p.id).padStart(2,'0');
+  const gb=document.getElementById('m-gbadge');
+  gb.textContent=GL[p.g];
+  gb.className='mimg-g '+p.g;
+  document.getElementById('m-brand').textContent=p.brand;
+  document.getElementById('m-name').textContent=p.name;
+  const gpill=document.getElementById('m-gender');
+  gpill.textContent=GL[p.g];
+  gpill.className='mpill g-'+p.g;
+  document.getElementById('m-price').textContent=fmt(p.price);
+  document.getElementById('m-top').textContent=p.top.join(' · ');
+  document.getElementById('m-mid').textContent=p.mid.join(' · ');
+  document.getElementById('m-base').textContent=p.base.join(' · ');
+  document.getElementById('m-for').textContent=p.desc;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+buildCards();
+initScrollAnim();
+</script>
+</body>
+</html>
